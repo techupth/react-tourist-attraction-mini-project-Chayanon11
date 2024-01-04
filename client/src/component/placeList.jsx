@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-export function PlaceList() {
+function PlaceList() {
   const baseURL = "http://localhost:4001/trips?keywords=";
   const [places, setPlaces] = useState([]);
   const [isError, setIsError] = useState(false);
@@ -28,6 +28,12 @@ export function PlaceList() {
     fetchDestinations();
   }, []);
 
+  const handleViewDetails = (placeId) => {
+    if (placeId) {
+      window.open(`http://localhost:4001/places/${placeId}`, "_blank");
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       {isLoading && <h1>Loading ....</h1>}
@@ -45,7 +51,9 @@ export function PlaceList() {
                   className="w-full rounded-md mb-2"
                 />
               )}
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                onClick={() => handleViewDetails(place.id)}>
                 View Details
               </button>
             </div>
@@ -55,3 +63,5 @@ export function PlaceList() {
     </div>
   );
 }
+
+export default PlaceList;

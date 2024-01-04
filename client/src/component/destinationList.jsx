@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,7 @@ function DestinationList() {
 
   return (
     <div className="destination-list">
-      <h2 class="text-4xl text-blue-500 animate-slide-in-right text-center mt-8 animate-pulse">
+      <h2 className="text-4xl text-blue-500 animate-slide-in-right text-center mt-8 animate-pulse">
         Top 10 Destinations
       </h2>
       <div className="place">

@@ -78,7 +78,9 @@ function Header() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
         {places.map((placeData, index) => (
           <div key={index} className="bg-white rounded-lg p-4 shadow-md">
-            <h2 className="text-xl font-semibold mb-2">{placeData.title}</h2>
+            <h2 className="text-xl font-semibold mb-2 text-black">
+              {placeData.title}
+            </h2>
             <p className="text-gray-700 mb-4">{placeData.description}</p>
             {placeData.photos && placeData.photos.length > 0 && (
               <img
