@@ -1,7 +1,18 @@
-import "./App.css";
+import React from "react";
+import Header from "./component/appHeader";
+import DestinationList from "./component/destinationList";
+import { PlaceList } from "./component/placeList";
 
 function App() {
-  return <div className="App">{/* Start coding here */}</div>;
+  const destinations = [];
+
+  return (
+    <div>
+      <Header />
+      <DestinationList destinations={destinations} />
+      <PlaceList />
+    </div>
+  );
 }
 
 export default App;
