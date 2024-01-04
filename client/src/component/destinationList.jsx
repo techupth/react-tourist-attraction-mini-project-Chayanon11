@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function DestinationList() {
   const [places, setPlaces] = useState([]);
@@ -9,7 +10,7 @@ function DestinationList() {
     const fetchDestinations = async () => {
       try {
         const response = await axios.get(baseURL);
-        setPlaces(response.data.items.slice(0, 10)); // แสดง 10 รายการเท่านั้น
+        setPlaces(response.data.items.slice(0, 10));
       } catch (error) {
         console.error("Error fetching data: ", error);
         setPlaces([]);
@@ -19,12 +20,11 @@ function DestinationList() {
     fetchDestinations();
   }, []);
 
-  const handleReadMore = (url) => {
-    window.open(url, "_blank");
-  };
-
   return (
     <div className="destination-list">
+      <h2 class="text-4xl text-blue-500 animate-slide-in-right text-center mt-8 animate-pulse">
+        Top 10 Destinations
+      </h2>
       <div className="place">
         {places.map((placeData, index) => (
           <div key={index}>

@@ -3,7 +3,6 @@ import axios from "axios";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 
 function Header() {
   const [search, setSearch] = useState("");
@@ -16,11 +15,23 @@ function Header() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    if (!search.trim()) {
+      alert("Please enter a search keyword.");
+      return;
+    }
     try {
-      const response = await axios.get(`${baseURL}${search}`);
-      const placesData = response.data.data;
-      handleSetPlaces(placesData);
-      console.log(placesData);
+      const response = await axios.get(baseURL + search);
+      const allPlaces = response.data.data;
+      const filteredPlaces = allPlaces.filter((place) => {
+        return (
+          place.description.toLowerCase().includes(search.toLowerCase()) ||
+          place.title.toLowerCase().includes(search.toLowerCase())
+        );
+      });
+      if (filteredPlaces.length === 0) {
+        alert("No results found.");
+      }
+      handleSetPlaces(filteredPlaces);
     } catch (error) {
       console.error("Error fetching data: ", error);
       handleSetPlaces([]);
@@ -41,7 +52,7 @@ function Header() {
     <div className="flex w-full p-6 bg-gradient-to-r from-blue-500 to-teal-500 text-white">
       <div className="flex flex-col justify-center items-center flex-1 p-4">
         <div className="flex items-center space-x-2 mb-4">
-          <TravelExploreIcon sx={{ fontSize: 80 }} />
+          <TravelExploreIcon sx={{ width: "5rem", height: "5rem" }} />
           <h1 className="text-5xl font-semibold">TravelSpot Finder</h1>
         </div>
         <div className="relative flex items-center w-full max-w-xs">
@@ -76,11 +87,11 @@ function Header() {
                 className="w-full rounded-md mb-4"
               />
             )}
-            <Link to={`/places/${placeData.id}`} className="block">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                Read More
-              </button>
-            </Link>
+            <button
+              onClick={() => handleReadMore(placeData.url)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+              Read More
+            </button>
           </div>
         ))}
       </div>

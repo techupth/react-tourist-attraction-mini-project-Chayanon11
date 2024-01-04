@@ -11,7 +11,6 @@ export function PlaceList() {
     const fetchDestinations = async () => {
       try {
         const response = await axios.get(baseURL);
-        console.log(response.data); // แสดงข้อมูลทั้งหมดที่ได้จาก server ใน console
         setPlaces(
           response.data && Array.isArray(response.data.data)
             ? response.data.data.slice(0, 10)
